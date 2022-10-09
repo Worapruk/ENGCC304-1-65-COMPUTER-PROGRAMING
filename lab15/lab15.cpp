@@ -1,73 +1,75 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 struct Employee{
-	char name[100] ;
+	char name[100];
 	int age ;
 	float salary ;
-	char job[50] ;
-} typedef E ;
-
-int ReadFileToStrct(E[], int) ;
-void ShowStruct(E[],int,int) ;
- 
-int main() {
-	int n = 100 ,LastLine ;
-	E set[n] ;
+	char job[100] ;
+}typedef worker;
 	
-	LastLine = ReadFileToStrct (set,n) ;
-	ShowStruct(set,n,LastLine) ;
+int takedata( worker [] ) ;
+void showdata( worker [], int ) ;
+void cyclemax( float , worker [], int, char []) ;
 	
-	
+int main(){
+	worker dataE[100] ;
+	int countL ;
+	countL = takedata( dataE ) ;
+	printf("--------------------------------------\n") ;
+	showdata( dataE, countL ) ;
 	return 0 ;
 }
 
-
- int ReadFileToStrct(E InputArr[], int n)  {
- 	int CountLine = 0 ;
- 	int LastLine= CountLine ;
- 	FILE *fp;
- 	fp = fopen("lab15.txt","r") ;
- 	if (fp==NULL){
- 		printf ("\n Error openning file.") ;
- 		exit(0) ;
-		 
+int takedata( worker arrset[] ) {
+	int count = 0 ;
+	FILE *fp ;
+	fp = fopen( "data.txt", "r" );
+	if (fp == NULL ){
+		printf( "ERROR : NOT FOUND DATA FILE!" ) ;
+		exit( 0 ) ;
+	}
+	fscanf( fp, "%s\t%s\t%s\t%s\n", arrset[0].name, arrset[0].name, arrset[0].name, arrset[0].name ) ;
+	
+	for (int i = 0 ; i < 100 ; i++){
+		
+		if (fscanf( fp, "%s\t%d\%f\t%s\n", arrset[i].name, &arrset[i].age, &arrset[i].salary, arrset[i].job ) != EOF) {
+			count++ ;
+			printf("%s\t%d\t%.2f\t%s\n", arrset[i].name, arrset[i].age, arrset[i].salary, arrset[i].job) ;
 		}
-	int i ;
-	for(i=0 ; i< n ; i++) {
-		if (fscanf(fp,"%10s %d %f %10s\n",InputArr[i].name,
-									  InputArr[i].age,
-									  InputArr[i].salary,
-									  InputArr[i].job) !=EOF )
-									  CountLine++ ;
-		else 
-		break ;
+		else{
+			break ;
+		}	
 	}
- 	
-
- return CountLine ;		
+	fclose(fp) ;
+	return count ;
+}
+void showdata( worker arrin[], int countL ) {
+	float cmp_salary = -999999999 ;
+	char Ajob[100][100] = {"Programmer", "Support", "Advisor", "Founder", "HR"} ;
+	char jobHolder[100] ;
+	for ( int i = 0 ; i < 5; i++ ){
+		for ( int j = 0 ; j < 100 ; j++){
+			if ( Ajob[i][j] == '\0' ){
+				jobHolder[j] = '\0' ;
+				break;
+			}
+			jobHolder[j] = Ajob[i][j] ;
+		}
+		cyclemax(cmp_salary, arrin, countL, jobHolder);
+	}
 }
 
-void ShowStruct(E InputArr[],int n,int LastLine) {
-	FILE *fp;
- 	
-char Programmer,Support, Advisor,HR,Funder ;
-//ax_pro ,max_ad ,max_su ,max_Hr,max_fu ;
-	for ( int i = 0 ; i < n ; i++) {
-	//f (InputArr[i].job==Programmer){
-	//if (InputArr[i].salary > max_pro ){
-	//	max_pro = InputArr[i].salary ;
-	//}
-	//
-	fprintf(fp,"%10s %d %f %10s \n " ,InputArr[i].name,
-					InputArr[i].age,
-					InputArr[i].salary,
-					InputArr[i].job ) ;
-		if( i== LastLine-1)break ;
+void cyclemax( float cmp, worker arrin[], int countL, char operation[]) {
+	char *name ;
+	for (int i=0 ; i < countL ; i++ ){
+		if (strcmp(arrin[i].job, operation) == 0 ) {
+			if (arrin[i].salary > cmp){
+				cmp = arrin[i].salary ;
+				name = arrin[i].name ;
+			}
+		
+		}	
 	}
-	
-	
-	
+	printf("%s : %s %.f bath\n",operation, name, cmp) ;
 }
-
