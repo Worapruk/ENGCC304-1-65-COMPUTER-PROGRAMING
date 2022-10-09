@@ -2,25 +2,30 @@
 
 int main() {
 	 int arr [100] ;
-	 int n ,i, a, check ;
+	 int n ,i=1, a, check ;
 	 printf("input Arr Size :" ) ;
 	 scanf ("%d", &n) ;
-	 for (i=1 ; i <= n ; i++) {
+	 while(i <= n) {
 	 	printf ("Arr[%d] ",i) ;
 	 	scanf("%d" , &arr[i]) ;
-	 } // end for loop
+	 	i++ ;
+	 } // end while loop
 	 printf("Unique = ") ;
-	 for (i=n ; i> 0 ; i--) {
+	 i=n ;
+	 while (i> 0) {
 		check = 0 ;
-		for (a=n ; a >0 ; a--) {
+		a=n ;
+		while (a >0) {
 			if( i !=a && arr[i]==arr[a]) {
 				check = 1 ;
 			} //end if
-		} //end for in for
+			a-- ;
+		} //end while in 
 		if (check == 0) {
 		printf("%d" ,arr[i]) ;
 	} // end if
-	 }//end for 
+	i--; 
+	 }//end while
 	
 	return 0 ;
 } // end function

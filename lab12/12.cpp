@@ -6,17 +6,17 @@ int count = 0;
 struct Emp {
  char name[ 500 ] ;
  int salary ;
- int year ;s
+ int year ;
 } typedef  emp;
 void input_struct( Emp [], int ) ;
 void output_struct( Emp [], int) ;
  
 int main() {
 	int n = 100 ;
-	Emp B[ n ] ;
- 	input_struct( B,n ) ;
+	Emp inputArr[ n ] ;
+ 	input_struct( inputArr,n ) ;
  
- 	output_struct( B, count ) ;
+ 	output_struct( inputArr, count ) ;
  	return 0 ;
 } // end function main
  
